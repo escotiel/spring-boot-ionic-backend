@@ -2,11 +2,18 @@ package com.escotiel.cursomc.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 //serializable -> interface que diz que os objetos da classe possam ser gravados em arquivos e trafegar em rede (transforam em bytes)
 public class Categoria implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)//cria automaticamente a chave primária para o Id
 	private Integer Id;
 	private String nome;
 	
