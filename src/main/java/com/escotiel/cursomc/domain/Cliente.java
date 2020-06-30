@@ -22,24 +22,28 @@ public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)//cria automaticamente a chave primária para o Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // cria automaticamente a chave primária para o Id
 	private Integer Id;
 	private String nome;
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
-	
-	@JsonManagedReference //resolve o erro de cíclico
+
+	@JsonManagedReference // resolve o erro de cíclico
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
-	
+
 	@ElementCollection
-	@CollectionTable(name="TELEFONE")
-	//entidade fraca
-	//set é uma coleção que não aceita repetição
+	@CollectionTable(name = "TELEFONE")
+	// entidade fraca
+	// set é uma coleção que não aceita repetição
 	private Set<String> telefones = new HashSet<>();
-	
-	public Cliente() {}
+
+	@OneToMany(mappedBy = "cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
+
+	public Cliente() {
+	}
 
 	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
 		super();
@@ -106,6 +110,14 @@ public class Cliente implements Serializable {
 		this.telefones = telefones;
 	}
 
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -129,8 +141,8 @@ public class Cliente implements Serializable {
 		} else if (!Id.equals(other.Id))
 			return false;
 		return true;
+	
+	
 	}
-	
-	
 	
 }
