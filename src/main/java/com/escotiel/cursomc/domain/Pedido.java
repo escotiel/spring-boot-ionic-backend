@@ -33,7 +33,6 @@ public class Pedido implements Serializable {
 	@OneToOne(cascade=CascadeType.ALL, mappedBy = "pedido") //elimina erro de identidade transient
 	private Pagamento pagamento;
 	
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
