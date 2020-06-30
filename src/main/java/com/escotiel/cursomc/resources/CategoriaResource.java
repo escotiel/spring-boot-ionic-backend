@@ -25,8 +25,8 @@ public class CategoriaResource {
 		
 		Categoria obj = service.find(id);
 		
-		Categoria cat1 = new Categoria(1,"Informática");
-		Categoria cat2 = new Categoria(2,"Escritório");
+		//Categoria cat1 = new Categoria(1,"Informática");
+		//Categoria cat2 = new Categoria(2,"Escritório");
 		
 		return ResponseEntity.ok(obj);
 		
