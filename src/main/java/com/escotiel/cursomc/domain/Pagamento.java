@@ -11,6 +11,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.escotiel.cursomc.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 //super classe que irá ativar a heranca
@@ -25,6 +26,7 @@ public abstract class Pagamento implements Serializable { //abstract garante que
 	private Integer id;
 	private Integer estado;
 	
+	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name="pedido_id")
 	@MapsId //id do pagamento tem que ser o mesmo do pedido
