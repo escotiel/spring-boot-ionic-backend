@@ -25,8 +25,16 @@ public class CategoriaService {
 	}
 	
 	public Categoria insert(Categoria obj) {
-		obj.setId(null);//garante que está inserindo um objeto novo (nulo)
+		obj.setId(null);//garante que está inserindo um objeto novo (nulo)//se o id é nulo insere
 		return repo.save(obj); //save serve pra inserir e atualizar
+	}
+
+	public Categoria update(Categoria obj) throws ObjectNotFoundException {
+		
+		//verificar se o objeto existe usando o método find
+		find(obj.getId());
+		
+		return repo.save(obj);//como o id não é nulo (existe no bd) ele atualiza
 	}
 
 }

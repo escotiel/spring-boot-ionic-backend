@@ -42,6 +42,7 @@ public class CategoriaResource {
 		return lista; //retorna a lista no formato JSON*/
 	}
 	
+	//método de inserção/atualização
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody Categoria obj){ //converte json para java
 		obj = service.insert(obj);
@@ -51,6 +52,11 @@ public class CategoriaResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
-
+	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id) throws ObjectNotFoundException{
+		obj.setId(id);
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
+	}
 
 }
