@@ -3,10 +3,12 @@ package com.escotiel.cursomc.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.escotiel.cursomc.domain.Categoria;
 import com.escotiel.cursomc.repositories.CategoriaRepository;
+import com.escotiel.cursomc.services.exceptions.DataIntegrityException;
 
 import javassist.tools.rmi.ObjectNotFoundException;
 
@@ -32,9 +34,20 @@ public class CategoriaService {
 	public Categoria update(Categoria obj) throws ObjectNotFoundException {
 		
 		//verificar se o objeto existe usando o método find
-		find(obj.getId());
-		
+		find(obj.getId());		
 		return repo.save(obj);//como o id não é nulo (existe no bd) ele atualiza
 	}
 
+	public void delete(Integer id) throws ObjectNotFoundException {		
+		//verificar se o objeto existe usando o método find
+		find(id);
+		//cria uma exceção personalizada para caso se tente apagar algum objeto que esteja relacionado com outro (integridade referencial)
+		//cria no pacote exceptions
+		try {
+			repo.deleteById(id);
+		}catch(DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possivel excluir uma categoria que possui produtos");
+		}
+
+}
 }
