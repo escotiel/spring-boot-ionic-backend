@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +51,8 @@ public class CategoriaResource {
 	
 	//método de inserção
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody Categoria obj){ //converte json para java
+	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto){ //converte json para java
+		Categoria obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		//pega a URI da nova categoria criada
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{/id}").buildAndExpand(obj.getId()).toUri();
@@ -59,12 +62,13 @@ public class CategoriaResource {
 	
 	//método de atualização
 	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id) throws ObjectNotFoundException{
+	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id) throws ObjectNotFoundException{
+		Categoria obj = service.fromDTO(objDto);
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
-
+ 
 	
 	//método de deleção
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
