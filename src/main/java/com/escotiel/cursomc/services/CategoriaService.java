@@ -37,11 +37,17 @@ public class CategoriaService {
 	}
 
 	public Categoria update(Categoria obj) throws ObjectNotFoundException {
-		
-		//verificar se o objeto existe usando o método find
-		find(obj.getId());		
-		return repo.save(obj);//como o id não é nulo (existe no bd) ele atualiza
+
+		// pega o cliente do BD
+		Categoria newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);// como o id não é nulo (existe no bd) ele atualiza
 	}
+	
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
+	}
+
 
 	public void delete(Integer id) throws ObjectNotFoundException {		
 		//verificar se o objeto existe usando o método find
