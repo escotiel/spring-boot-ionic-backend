@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,10 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // cria automaticamente a chave primária para o Id
 	private Integer Id;
 	private String nome;
-	private String email;
+	
+	@Column(unique=true) //não deixa repetir o e-mail (gera uma exceção do bd --> springData) DataIntegrityViolation
+	private String email;//gerar um método no repository pra controlar a exceção
+	
 	private String cpfOuCnpj;
 	private Integer tipo;
 
