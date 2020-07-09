@@ -1,5 +1,6 @@
 package com.escotiel.cursomc.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.escotiel.cursomc.domain.Categoria;
 import com.escotiel.cursomc.domain.Cliente;
 import com.escotiel.cursomc.dto.ClienteDTO;
+import com.escotiel.cursomc.dto.ClienteNewDTO;
 import com.escotiel.cursomc.services.ClienteService;
 
 import javassist.tools.rmi.ObjectNotFoundException;
@@ -46,6 +50,17 @@ public class ClienteResource {
 		
 		return lista; //retorna a lista no formato JSON*/
 	}
+	
+	//método de inserção
+		@RequestMapping(method=RequestMethod.POST)
+		public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto){ //converte json para java
+			Cliente obj = service.fromDTO(objDto);
+			obj = service.insert(obj);
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{/id}").buildAndExpand(obj.getId()).toUri();
+			
+			return ResponseEntity.created(uri).build();
+		}
+		
 	
 	//método de atualização
 		@RequestMapping(value="/{id}", method = RequestMethod.PUT)
