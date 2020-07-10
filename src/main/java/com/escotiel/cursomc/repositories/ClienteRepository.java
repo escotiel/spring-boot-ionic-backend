@@ -11,6 +11,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 	
 	//padrão de nomes do SpringData
 	@Transactional(readOnly=true)
-	Cliente findByEmail(String email); //só isso basta pro Spring criar o método automaticamente
+	Cliente findByEmail(String email); //só isso basta pro Spring criar o método de consulta ao bd automaticamente
 
 }
