@@ -12,12 +12,14 @@ import javax.persistence.OneToOne;
 
 import com.escotiel.cursomc.domain.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @Entity
 //super classe que irá ativar a heranca
 //muitos atributos nas subclasses ('tabelão-.melhor performace mas gera dados nulos)
 //poucos atributos nas subclasses (uma tabela para cada classe - igual no modelo diagrama)
 @Inheritance(strategy=InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")//define qual o tipo de pagamento (boleto, cartão)
 public abstract class Pagamento implements Serializable { //abstract garante que esta classe não seja instanciada, mas sim suas subclasses
 	private static final long serialVersionUID = 1L;
 	

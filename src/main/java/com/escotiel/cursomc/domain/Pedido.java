@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -31,10 +32,13 @@ public class Pedido implements Serializable {
 
 	@JsonManagedReference
 	@OneToOne(cascade=CascadeType.ALL, mappedBy = "pedido") //elimina erro de identidade transient
+	
+	@JsonIgnore
 	private Pagamento pagamento;
 	
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
+	@JsonIgnore
 	private Cliente cliente;
 	
 	@ManyToOne

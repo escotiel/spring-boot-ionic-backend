@@ -18,7 +18,6 @@ import com.escotiel.cursomc.domain.Endereco;
 import com.escotiel.cursomc.domain.enums.TipoCliente;
 import com.escotiel.cursomc.dto.ClienteDTO;
 import com.escotiel.cursomc.dto.ClienteNewDTO;
-import com.escotiel.cursomc.repositories.CidadeRepository;
 import com.escotiel.cursomc.repositories.ClienteRepository;
 import com.escotiel.cursomc.repositories.EnderecoRepository;
 import com.escotiel.cursomc.services.exceptions.DataIntegrityException;
