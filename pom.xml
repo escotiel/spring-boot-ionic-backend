@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.escotiel</groupId>
-	<artifactId>cursomc</artifactId>
+	<artifactId>cursomc-es</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	
 	<description>Demo project for Spring Boot</description>
